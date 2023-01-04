@@ -3,10 +3,10 @@
         <form @submit.prevent>
             <header>Efetuar login</header>
             <div class="form-input-group">
-                <input type="text" v-model="email" placeholder="Email">
+                <input type="text" v-model="formData.email" placeholder="Email">
             </div>
             <div class="form-input-group">
-                <input :type="passwordFieldType" v-model="password" placeholder="Senha">
+                <input :type="passwordFieldType" v-model="formData.password" placeholder="Senha">
             </div>
             <div class="from-check-group">
                 <input type="checkbox" name="showPassword" id="showPassword" @click="showPassword()">
@@ -28,11 +28,14 @@
 
 <script setup>
     import btnInfo from '@/components/default/buttonPrimary.vue'
-    import {ref} from 'vue'
+    import {ref, reactive} from 'vue'
 
-    let email = ref("")
-    let password = ref("")
-   
+    //usar o reactive quando se tratando de objetos
+    const formData = reactive({
+        email: "",
+        password: ""
+    })
+
     //lista de erros ao acessar a api
     let listOfErrors = ref([])
 
@@ -47,14 +50,9 @@
 
         listOfErrors.value.length = 0
 
-        let credentials = {
-            email : email.value,
-            password : password.value
-        }
-
         const request = await fetch("http://127.0.0.1:8000/api/auth/login", {
             method: 'POST',
-            body: JSON.stringify(credentials),
+            body: JSON.stringify(formData),
             headers: {
                 "Accept" : "application/json",
                 //avisar que o conteudo que estou passando é um json
@@ -63,7 +61,6 @@
         }).catch(errors => {
             listOfErrors.value.push(errors)
         })
-
 
         if(request.status == 401)
             listOfErrors.value.push("usuario ou senha inválidos")
