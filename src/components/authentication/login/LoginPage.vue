@@ -62,8 +62,8 @@
             listOfErrors.value.push(errors)
         })
 
-        if(request.status == 401)
-            listOfErrors.value.push("usuario ou senha inválidos")
+        if(await request.status == 401)
+            listOfErrors.value.push("email ou senha inválidos")
     }
 </script>
 
