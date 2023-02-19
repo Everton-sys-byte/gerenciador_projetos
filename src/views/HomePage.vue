@@ -1,5 +1,5 @@
 <template>
-    <banner />
+    <banner class="first-banner"/>
 </template>
 
 <script setup>
