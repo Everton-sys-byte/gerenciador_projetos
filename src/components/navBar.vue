@@ -6,12 +6,12 @@
       <li><router-link to="/updates">Atualizações</router-link></li>
     </ul>
 
-    <login-button/>
+    <login-wrapper/>
   </div>
 </template>
 
 <script setup>
-    import loginButton from '@/components/loginButton.vue'
+    import loginWrapper from '@/components/loginWrapper.vue'
 </script>
 
 
